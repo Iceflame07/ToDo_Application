@@ -6,7 +6,7 @@ import org.WalkingCompiler.todo_application.DTO.Response.loginResponse;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
-public class ServiceTest {
+public class ServiceImplTest {
 
     @Test
     public void testThatSignUpRequestIsWorking() {
@@ -18,8 +18,8 @@ public class ServiceTest {
     }
 
     @Test
-    public void testThatResponseIsWorking() {
-        SignUpResponse response = new SignUpResponse();
+    public void testThatSignUpResponseIsWorking() {
+        SignUpResponse response = new SignUpResponse("signUp successful");
         response.setMessage(response.getMessage());
         Assertions.assertTrue(true);
         Assertions.assertEquals("", response.getMessage());

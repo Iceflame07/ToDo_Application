@@ -10,21 +10,45 @@ import org.springframework.stereotype.Service;
 public class ToDoServiceImpl implements ToDoService {
 
     @Autowired
-    private ToDoRepository toDoRepository;
+    private static ToDoRepository toDoRepository;
+
+    public ToDoServiceImpl(ToDoRepository toDoRepository) {
+        this.toDoRepository = toDoRepository;
+    }
 
     @Override
     public SignUpResponse SignUp(SignUpResponse request) {
-        request = new SignUpResponse();
-        ToDoApplication userName = toDoRepository.SignUp(request, SignUpResponse.getUserName());
-        ToDoApplication Password = toDoRepository.SignUp(request, SignUpResponse.getPassword());
-        return new SignUpResponse();
+        String userName = request.getUserName();
+        String password = request.getPassword();
+        SignUpResponse response = new SignUpResponse();
+        return SignUp(response);
     }
 
     @Override
     public loginResponse login(loginResponse request) {
-        request = new loginResponse();
-        ToDoApplication userName = toDoRepository.login(request, loginResponse.getUserName());
-        ToDoApplication Password = toDoRepository.login(request, loginResponse.getPassword());
-        return new loginResponse();
+        String userName = request.getUserName();
+        String password = request.getPassword();
+        loginResponse response = new loginResponse();
+        return login(response);
+    }
+
+    public ToDoApplication getByViewTask(String viewTask) {
+        return toDoRepository.findByViewTask(viewTask);
+    }
+
+    public ToDoApplication getByAddTask(String addTask) {
+        return toDoRepository.findByAddTask(addTask);
+    }
+
+    public ToDoApplication getByEditTask(String editTask){
+        return toDoRepository.findByEditTask(editTask);
+    }
+
+    public ToDoApplication getByUpdateTask(String updateTask){
+        return toDoRepository.findByUpdateTask(updateTask);
+    }
+
+    public ToDoApplication getByDeleteTask(String deleteTask) {
+        return toDoRepository.findByDeleteTask(deleteTask);
     }
 }

@@ -3,10 +3,10 @@ import org.WalkingCompiler.todo_application.Data.Models.ToDo;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
-public class modelTest {
+public class RepositoryTest {
 
     @Test
-    public void testToDoModel() {
+    public void testToDoRepository() {
        ToDo task = new ToDo();
        task.setAddTask("");
        task.setEditTask("");
