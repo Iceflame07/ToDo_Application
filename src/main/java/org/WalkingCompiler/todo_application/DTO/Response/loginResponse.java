@@ -7,5 +7,5 @@ import org.WalkingCompiler.todo_application.DTO.Request.loginRequest;
 public class loginResponse extends loginRequest {
 
     private String userName;
-    private String message = "welcome";
+    private String message = "welcome back!";
 }

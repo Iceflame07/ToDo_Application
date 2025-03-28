@@ -7,7 +7,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ToDoRepository extends MongoRepository <ToDoApplication, String> {
 
-    ToDoApplication save();
+    ToDoApplication findAll(ToDo findAll);
     ToDoApplication insert(ToDo create);
-    ToDoApplication delete(ToDo delete);
+    ToDoApplication save(ToDo title);
+    ToDo delete(ToDo delete);
 }
+
+

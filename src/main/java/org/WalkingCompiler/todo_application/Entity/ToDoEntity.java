@@ -1,30 +1,44 @@
 package org.WalkingCompiler.todo_application.Entity;
-import lombok.Data;
-import lombok.Generated;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import java.time.Instant;
 
 @Data
 @NoArgsConstructor
-@Document(collection = "toDo")
+@Getter
+@Setter
 public class ToDoEntity {
 
     @Id
-    private String id;
     private String title;
     private String description;
-    private String userId;
+    private boolean isComplete;
+    private Instant createdAt;
+    private Instant completedAt;
+    private Instant updatedAt;
+    private String delete;
 
-    @Generated
-    private boolean completed;
-    private boolean update;
 
-    public ToDoEntity(String title, String description, boolean completed, boolean update,  String userId) {
+    public ToDoEntity(String title, String description, boolean isComplete, Instant createdAt, Instant completedAt, Instant updatedAt,  String delete) {
         this.title = title;
         this.description = description;
-        this.userId = userId;
-        this.completed = true;
-        this.update = true;
+        this.isComplete = true;
+        this.createdAt = createdAt;
+        this.completedAt = completedAt;
+        this.updatedAt = updatedAt;
+        this.delete = delete;
+    }
+
+    @Override
+    public String toString() {
+        return "Todo{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", isComplete=" + isComplete +
+                ", createdAt=" + createdAt +
+                ", completedAt=" + completedAt +
+                ", updatedAt=" + updatedAt +
+                ", delete='" + delete + '\'' +
+                '}';
     }
 }

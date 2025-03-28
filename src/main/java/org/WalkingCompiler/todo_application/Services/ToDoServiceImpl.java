@@ -28,12 +28,17 @@ public class ToDoServiceImpl implements ToDoService{
             title.setCreatedAt(Instant.now());
         }
         title.setUpdatedAt(Instant.now());
-        return toDoRepository.save();
+        return toDoRepository.save(title);
     }
 
     @Override
     public ToDo delete(ToDo delete){
         toDoRepository.delete(delete);
         return delete;
+    }
+
+    @Override
+    public String getAll() {
+        return "";
     }
 }

@@ -1,5 +1,5 @@
 package org.WalkingCompiler.todo_application.Utils;
 
-public class UserMapper {
+public interface UserMapper {
 
 }

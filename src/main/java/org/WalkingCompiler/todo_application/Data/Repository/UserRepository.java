@@ -1,17 +1,12 @@
 package org.WalkingCompiler.todo_application.Data.Repository;
-import org.WalkingCompiler.todo_application.DTO.Request.SignUpRequest;
-import org.WalkingCompiler.todo_application.DTO.Request.loginRequest;
 import org.WalkingCompiler.todo_application.Data.Models.User;
-import org.WalkingCompiler.todo_application.ToDoApplication;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
+import java.util.Optional;
 
 @Repository
-public interface UserRepository extends MongoRepository<ToDoApplication, String> {
+public interface UserRepository extends MongoRepository<User, String> {
 
-    loginRequest login(loginRequest request);
-    SignUpRequest SignUp(SignUpRequest request);
-    UserRepository userName(User userName);
-    UserRepository password(User password);
+    Optional<User> findByUsername(String username);
     UserRepository save(User userName, String password);
 }

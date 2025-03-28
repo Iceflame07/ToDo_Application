@@ -1,4 +1,5 @@
 package org.WalkingCompiler.todo_application.Controller;
+import org.WalkingCompiler.todo_application.Data.Models.ToDo;
 import org.WalkingCompiler.todo_application.Services.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,5 +21,8 @@ public class ToDoController {
         return modelAndView;
     }
 
-
+    @GetMapping("/create-todo")
+    public String showForm(ToDo toDo) {
+        return "new todo";
+    }
 }
