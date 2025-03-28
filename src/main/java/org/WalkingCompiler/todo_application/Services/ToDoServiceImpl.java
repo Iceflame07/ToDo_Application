@@ -1,54 +1,56 @@
 package org.WalkingCompiler.todo_application.Services;
-import org.WalkingCompiler.todo_application.DTO.Response.SignUpResponse;
-import org.WalkingCompiler.todo_application.DTO.Response.loginResponse;
+import org.WalkingCompiler.todo_application.Data.Models.ToDo;
+import org.WalkingCompiler.todo_application.Data.Models.User;
 import org.WalkingCompiler.todo_application.Data.Repository.ToDoRepository;
+import org.WalkingCompiler.todo_application.Data.Repository.UserRepository;
 import org.WalkingCompiler.todo_application.ToDoApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.time.Instant;
+import java.util.List;
 
 @Service
-public class ToDoServiceImpl implements ToDoService {
+public class ToDoServiceImpl {
 
     @Autowired
-    private static ToDoRepository toDoRepository;
+    private ToDoRepository toDoRepository;
+    private UserRepository userRepository;
 
-    public ToDoServiceImpl(ToDoRepository toDoRepository) {
-        this.toDoRepository = toDoRepository;
+    public List<ToDoApplication> findAll(){
+        return toDoRepository.findAll();
     }
 
-    @Override
-    public SignUpResponse SignUp(SignUpResponse request) {
-        String userName = request.getUserName();
-        String password = request.getPassword();
-        SignUpResponse response = new SignUpResponse();
-        return SignUp(response);
+    public ToDoApplication insert(ToDo create){
+        return toDoRepository.insert(create);
     }
 
-    @Override
-    public loginResponse login(loginResponse request) {
-        String userName = request.getUserName();
-        String password = request.getPassword();
-        loginResponse response = new loginResponse();
-        return login(response);
+    public ToDoApplication save(ToDo title){
+        if(title.getTitle() == null){
+            title.setCreatedAt(Instant.now());
+        }
+           title.setUpdatedAt(Instant.now());
+        return toDoRepository.save();
     }
 
-    public ToDoApplication getByViewTask(String viewTask) {
-        return toDoRepository.findByViewTask(viewTask);
+    public ToDo delete(ToDo delete){
+        toDoRepository.delete(delete);
+        return delete;
     }
 
-    public ToDoApplication getByAddTask(String addTask) {
-        return toDoRepository.findByAddTask(addTask);
+    public UserRepository userName(User userName) {
+        return userRepository.userName(userName);
     }
 
-    public ToDoApplication getByEditTask(String editTask){
-        return toDoRepository.findByEditTask(editTask);
+    public UserRepository password(User password) {
+        return userRepository.password(password);
     }
 
-    public ToDoApplication getByUpdateTask(String updateTask){
-        return toDoRepository.findByUpdateTask(updateTask);
-    }
-
-    public ToDoApplication getByDeleteTask(String deleteTask) {
-        return toDoRepository.findByDeleteTask(deleteTask);
+    public UserRepository save(User userName, String password) {
+        if(userName.getUserName() == "") {
+            userName.setUserName(String.valueOf(userName));
+        } else if(userName.getPassword() == password) {
+            password.length();
+        }
+        return userRepository.save(userName,password);
     }
 }

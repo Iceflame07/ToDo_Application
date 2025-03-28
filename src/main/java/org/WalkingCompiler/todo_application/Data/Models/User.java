@@ -1,12 +1,12 @@
 package org.WalkingCompiler.todo_application.Data.Models;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.data.annotation.Id;
 
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Data @Getter @Setter @NoArgsConstructor
 public class User {
 
-    private String username;
+    @Id
+    private int id;
+    private String userName;
     private String password;
 }

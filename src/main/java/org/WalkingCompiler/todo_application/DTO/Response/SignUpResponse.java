@@ -6,9 +6,5 @@ import lombok.Setter;
 public class SignUpResponse {
 
     private String userName;
-    private String password;
-    private String message = "Registration successful!";
-
-    public SignUpResponse() {
-    }
+    private String message = "Registration successful";
 }

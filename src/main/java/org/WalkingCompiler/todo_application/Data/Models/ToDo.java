@@ -1,16 +1,23 @@
 package org.WalkingCompiler.todo_application.Data.Models;
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import java.time.Instant;
 
 @Data @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-@Document(collection = "ToDo_Application")
 public class ToDo {
 
     @Id
-    private String viewTask;
-    private String addTask;
-    private String editTask;
-    private String updateTask;
-    private String deleteTask;
+    private String title;
+    private String description;
+    private boolean isComplete;
+    private Instant createdAt;
+    private Instant completedAt;
+    private Instant updatedAt;
+    private String delete;
+
+    @Override
+    public String toString() {
+        return String.format("Todo{id=%d, title='%s', description='%s', isComplete='%s', createdAt='%s', updatedAt='%s', delete'%s'",
+        title, description, isComplete, createdAt, updatedAt, delete);
+    }
 }
