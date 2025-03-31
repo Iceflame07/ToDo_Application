@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class ToDoEntity {
 
     @Id
-    private String id;
+    private int id;
     private String userId;
     private String title;
     private String description;

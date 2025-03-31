@@ -23,6 +23,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> findUserByUsername(String username) {
-        return userRepository.findByUsername(username).map(userMapper, entityToUser);
+        return userRepository.findByUsername(username).map(userMapper, request);
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Component
 public class ToDoServiceImpl implements ToDoService{
@@ -36,24 +37,25 @@ public class ToDoServiceImpl implements ToDoService{
         return list;
     }
 
+
     @Override
     public Optional<ToDo> getToDoById(String id, String userId) {
         return toDoRepository.findById(id).map(toDoMapper, entityToToDo);
-    }
 
-    @Override
-    public ToDo updateToDo(String id, ToDoRequest request, String userId) {
-        ToDoEntity entity = toDoRepository.findById(id).filter(toDoEntity -> toDoEntity.getUserId().equals(userId)).orElse(null);
-        if (entity != null) {
-            entity.setTitle(request.getTitle());
-            entity.setDescription(request.getDescription());
-            return ToDoMapper.entityToToDo(toDoRepository.save(entity));
-        }
-        return null;
     }
 
     @Override
     public void deleteToDo(String id, String userId) {
         toDoRepository.findById(id).filter(todoEntity -> todoEntity.getUserId().equals(userId));
     }
-}
+
+    @Override
+    public ToDo updateToDo(ToDoRequest request, String update) {
+        ToDoEntity entity = toDoRepository.findById(String.valueOf(id)).filter(toDoEntity -> toDoEntity.getUserId().equals(userId)).orElse(null);
+        if (entity != null) {
+            entity.setTitle(request.getTitle());
+            entity.setDescription(request.getDescription());
+            return ToDoMapper.entityToToDo(toDoRepository.save(entity));
+        }
+        return entity;
+    }

@@ -11,6 +11,6 @@ public interface ToDoService {
     ToDo createToDo(ToDoRequest request, String userId);
     List<ToDo> getAllToDos(String userId);
     Optional<ToDo> getToDoById(String id, String userId);
-    ToDo updateToDo(String id, ToDoRequest request, String userId);
     void deleteToDo(String id, String userId);
+    ToDo updateToDo(ToDoRequest request, String update);
 }

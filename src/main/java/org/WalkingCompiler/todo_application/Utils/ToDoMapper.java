@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ToDoMapper {
 
-    static ToDo entityToToDo(ToDoEntity entity){
+    public static ToDo entityToToDo(ToDoEntity entity){
         ToDo toDo = new ToDo();
         toDo.setId(entity.getId());
         toDo.setUserId(entity.getUserId());

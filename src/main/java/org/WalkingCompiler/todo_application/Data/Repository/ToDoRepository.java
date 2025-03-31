@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public interface ToDoRepository extends MongoRepository<ToDoEntity, String> {
+    ToDo save(String ToDoRequest);
     List<ToDoEntity> findByUserId(String userId);
     ToDo updateToDo(String id, ToDoRequest request, int id1);
     void deleteToDo(String id, int id1);
