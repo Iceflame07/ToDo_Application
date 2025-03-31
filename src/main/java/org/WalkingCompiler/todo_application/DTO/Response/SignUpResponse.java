@@ -1,10 +1,9 @@
 package org.WalkingCompiler.todo_application.DTO.Response;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import org.WalkingCompiler.todo_application.Data.Models.User;
 
-@Getter @Setter
+@Data
 public class SignUpResponse {
 
-    private String userName;
-    private String message = "Registration successful";
+    private User user;
 }

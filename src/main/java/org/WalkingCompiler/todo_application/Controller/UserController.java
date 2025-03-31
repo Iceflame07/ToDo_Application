@@ -1,21 +1,33 @@
 package org.WalkingCompiler.todo_application.Controller;
-import org.WalkingCompiler.todo_application.Data.Models.User;
-import org.WalkingCompiler.todo_application.Services.UserService;
+import org.WalkingCompiler.todo_application.DTO.Request.SignUpRequest;
+import org.WalkingCompiler.todo_application.DTO.Response.SignUpResponse;
+import org.WalkingCompiler.todo_application.DTO.Response.loginResponse;
+import org.WalkingCompiler.todo_application.Data.Repository.UserRepository;
+import org.WalkingCompiler.todo_application.Entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.Optional;
 
 @RestController
-@Controller
+@RequestMapping("/User")
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserRepository userRepository;
 
-    @GetMapping("/")
-    public User signUp(@RequestBody String signUp) {
-        return signUp(signUp);
+    @PostMapping("/loginResponse")
+    public ResponseEntity<String> loginResponse(@RequestBody loginResponse response) {
+        Optional<UserEntity> login = userRepository.findByUsername(String.valueOf(response));
+        return ResponseEntity.ok("message");
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<SignUpResponse> signup(@RequestBody SignUpRequest signupRequest) {
+        UserEntity userEntity = new UserEntity();
+        return ResponseEntity.ok(signUpResponse);
     }
 }

@@ -1,33 +1,28 @@
 package org.WalkingCompiler.todo_application.Services;
 import org.WalkingCompiler.todo_application.Data.Models.User;
 import org.WalkingCompiler.todo_application.Data.Repository.UserRepository;
+import org.WalkingCompiler.todo_application.Entity.UserEntity;
+import org.WalkingCompiler.todo_application.Utils.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
-    public Optional<User> userName(User userName) {
-        return userRepository.findByUsername(String.valueOf(userName));
+    public User createUser(UserEntity userEntity) {
+        return userMapper.entityToUser(userRepository.save(userEntity));
     }
 
     @Override
-    public UserRepository password() {
-        return password();
-    }
-
-    @Override
-    public UserRepository save(User userName, String password) {
-        if(userName.getUserName() == "") {
-            userName.setUserName(String.valueOf(userName));
-        } else if(userName.getPassword() == password) {
-            password.length();
-        }
-        return userRepository.save(userName, password);
+    public Optional<User> findUserByUsername(String username) {
+        return userRepository.findByUsername(username).map(userMapper, entityToUser);
     }
 }

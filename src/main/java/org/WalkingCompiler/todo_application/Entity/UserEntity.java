@@ -1,20 +1,14 @@
 package org.WalkingCompiler.todo_application.Entity;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Getter @Setter
+@Document(collection = "users")
+@Data
 public class UserEntity {
 
+    @Id
+    private String id;
     private String username;
     private String password;
-
-    public UserEntity(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "User(username='" + username + "')";
-    }
 }
