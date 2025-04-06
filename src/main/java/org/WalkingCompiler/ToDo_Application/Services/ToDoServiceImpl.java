@@ -1,6 +1,9 @@
 package org.WalkingCompiler.ToDo_Application.Services;
+import org.WalkingCompiler.ToDo_Application.DTO.Request.LoginRequest;
+import org.WalkingCompiler.ToDo_Application.DTO.Request.SignUpRequest;
 import org.WalkingCompiler.ToDo_Application.Data.Models.ToDo;
 import org.WalkingCompiler.ToDo_Application.Data.Repository.ToDoRepository;
+import org.WalkingCompiler.ToDo_Application.Utils.ToDoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -11,44 +14,39 @@ public class ToDoServiceImpl implements ToDoService {
 
     @Autowired
     private ToDoRepository toDoRepository;
+    private ToDoMapper toDoMapper;
 
-    public ToDoServiceImpl(ToDoRepository toDoRepository) {
-        this.toDoRepository = toDoRepository;
+    @Override
+    public LoginRequest createToDo(ToDo toDo) {
+        ToDo toDo1 = ToDoMapper.mapToToDo(String.valueOf(toDo));
+        ToDo savedToDo = toDoRepository.save(toDo1);
+        return ToDoMapper.mapToLoginRequest(savedToDo);
     }
 
     @Override
-    public ToDo createToDo(ToDo toDo) {
-        ToDo toDo1 = new ToDo();
-        toDo1.setId("1");
-        toDo1.setDescription("write a front-end code in javascript");
-        return toDoRepository.save(toDo);
-    }
-
-    @Override
-    public Optional<ToDo> getToDoById(String id) {
-        ToDo toDo = new ToDo();
-        toDo.setTitle("ToDoList");
-        return toDoRepository.findById("1");
+    public SignUpRequest getToDoById(String id) {
+        ToDo toDo = ToDoMapper.mapToToDo(id);
+        Optional<ToDo> getId = toDoRepository.findById(String.valueOf(toDo));
+        return ToDoMapper.mapToSignUpRequest(getId);
     }
 
     @Override
     public List<ToDo> findByUserId(String userId) {
-        ToDo toDo = new ToDo();
-        toDo.setUserId(toDo.getUserId());
-        return List.of(toDo);
+        ToDo toDo = ToDoMapper.mapToToDo("");
+        ToDo UserId = (ToDo) toDoRepository.findByUserId(String.valueOf(toDo));
+        return (List<ToDo>) ToDoMapper.mapToLoginRequest(UserId);
     }
 
     @Override
-    public ToDo updateToDo(ToDo toDo) {
-        ToDo toDo1 = new ToDo();
-        toDo1.setCompleted(true);
-        toDo1.isCompleted();
-        return toDoRepository.save(toDo);
+    public LoginRequest updateToDo(ToDo toDo) {
+        ToDo toDo1 = ToDoMapper.mapToToDo("");
+        ToDo updated = toDoRepository.save(toDo1);
+        return ToDoMapper.mapToLoginRequest(updated);
     }
 
     @Override
-    public void deleteToDo(String id) {
-        ToDo toDo = new ToDo();
-        toDoRepository.delete(toDo);
+    public ToDoRepository deleteToDo(String id) {
+        ToDo deleted = ToDoMapper.mapToToDo("");
+        return (ToDoRepository) ToDoMapper.mapToLoginRequest(deleted);
     }
 }

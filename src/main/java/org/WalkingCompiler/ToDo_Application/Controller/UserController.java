@@ -1,47 +1,41 @@
 package org.WalkingCompiler.ToDo_Application.Controller;
 import org.WalkingCompiler.ToDo_Application.DTO.Request.LoginRequest;
 import org.WalkingCompiler.ToDo_Application.DTO.Request.SignUpRequest;
-import org.WalkingCompiler.ToDo_Application.DTO.Response.LoginResponse;
-import org.WalkingCompiler.ToDo_Application.DTO.Response.SignUpResponse;
 import org.WalkingCompiler.ToDo_Application.Data.Models.User;
+import org.WalkingCompiler.ToDo_Application.Data.Repository.UserRepository;
 import org.WalkingCompiler.ToDo_Application.Services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("api/User")
 public class UserController {
 
-    private final UserService userService;
+    private UserRepository userRepository;
+    private UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<SignUpResponse> registerUser(@RequestBody SignUpRequest signUpRequest) {
-        SignUpResponse response = userService.createUser(signUpRequest);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    @PostMapping("/createUser")
+    public ResponseEntity<UserRepository> createUser(@RequestBody UserRepository userRepository) {
+        UserRepository savedUser = userService.createUser((SignUpRequest) userRepository);
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<LoginResponse> authenticateUser(@RequestBody LoginRequest loginRequest) {
-        LoginResponse response = userService.loginUser(loginRequest);
-        return ResponseEntity.ok(response);
+    @GetMapping("/findByUserName")
+    public ResponseEntity<Optional<User>> findByUserName(@PathVariable UserRepository userRepository) {
+        Optional<User> userName = userService.findByUserName(String.valueOf(userRepository));
+        return new ResponseEntity<>(userName, HttpStatus.OK);
     }
 
-    @GetMapping("/check-username/{username}")
-    public ResponseEntity<Boolean> checkUsernameAvailability(@PathVariable String username) {
-        boolean isAvailable = !userService.findByUsername(username).isPresent();
-        return ResponseEntity.ok(isAvailable);
-    }
-
-    @GetMapping("/user/{username}")
-    public ResponseEntity<User> getUserProfile(
-            @PathVariable String username) {
-        return userService.findByUsername(username)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/loginUser")
+    public ResponseEntity<UserRepository> loginUser(@PathVariable UserRepository userRepository) {
+        UserRepository login = userService.loginUser((LoginRequest) userRepository);
+        return new ResponseEntity<>(login, HttpStatus.OK);
     }
 }

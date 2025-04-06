@@ -11,7 +11,7 @@ public class ServiceTest {
 
     @Test
     public void testLoginSuccess() {
-        LoginRequest loginRequest = new LoginRequest();
+        LoginRequest loginRequest = new LoginRequest("","");
         loginRequest.setUsername("test");
         loginRequest.setPassword("password");
         assertTrue(true);
@@ -20,7 +20,7 @@ public class ServiceTest {
 
     @Test
     public void testLoginFailure() {
-        LoginRequest loginRequest = new LoginRequest();
+        LoginRequest loginRequest = new LoginRequest("","");
         loginRequest.setUsername("test");
         loginRequest.setPassword("wrongPassword");
         assertFalse(false);
@@ -29,7 +29,7 @@ public class ServiceTest {
 
     @Test
     public void testSignupSuccess() {
-        SignUpRequest success = new SignUpRequest();
+        SignUpRequest success = new SignUpRequest("","");
         success.setUsername("test");
         success.setPassword("password");
         assertTrue(true);
@@ -39,7 +39,7 @@ public class ServiceTest {
 
     @Test
     public void testSignupFailure() {
-        SignUpRequest failure = new SignUpRequest();
+        SignUpRequest failure = new SignUpRequest("","");
         failure.setUsername("test");
         failure.setPassword("newPassword");
         assertFalse(false);
