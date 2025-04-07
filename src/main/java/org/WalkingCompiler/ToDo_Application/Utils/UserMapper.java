@@ -9,15 +9,13 @@ public class UserMapper {
     public static User mapToLoginRequestToUser(User loginRequest) {
         return new User(
                 "",
-                "",
                 ""
         );
     }
 
 
-    public static User mapToUser(String findByUserName) {
+    public static User mapUserToUser(String findByUserName) {
         return new User(
-                "",
                 "",
                 ""
         );
@@ -25,7 +23,6 @@ public class UserMapper {
 
     public User mapSignUpRequestToUser(SignUpRequest signUpRequest) {
         return new User(
-                "",
                 "",
                 ""
         );

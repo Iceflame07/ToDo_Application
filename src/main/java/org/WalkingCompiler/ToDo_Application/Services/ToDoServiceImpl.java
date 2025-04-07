@@ -1,6 +1,4 @@
 package org.WalkingCompiler.ToDo_Application.Services;
-import org.WalkingCompiler.ToDo_Application.DTO.Request.LoginRequest;
-import org.WalkingCompiler.ToDo_Application.DTO.Request.SignUpRequest;
 import org.WalkingCompiler.ToDo_Application.Data.Models.ToDo;
 import org.WalkingCompiler.ToDo_Application.Data.Repository.ToDoRepository;
 import org.WalkingCompiler.ToDo_Application.Utils.ToDoMapper;
@@ -17,36 +15,36 @@ public class ToDoServiceImpl implements ToDoService {
     private ToDoMapper toDoMapper;
 
     @Override
-    public LoginRequest createToDo(ToDo toDo) {
+    public ToDo createToDo(ToDo toDo) {
         ToDo toDo1 = ToDoMapper.mapToToDo(String.valueOf(toDo));
         ToDo savedToDo = toDoRepository.save(toDo1);
-        return ToDoMapper.mapToLoginRequest(savedToDo);
+        return ToDoMapper.mapToToDo(String.valueOf(savedToDo));
     }
 
     @Override
-    public SignUpRequest getToDoById(String id) {
+    public ToDo getToDoById(String id) {
         ToDo toDo = ToDoMapper.mapToToDo(id);
         Optional<ToDo> getId = toDoRepository.findById(String.valueOf(toDo));
-        return ToDoMapper.mapToSignUpRequest(getId);
+        return ToDoMapper.mapToToDo(String.valueOf(getId));
     }
 
     @Override
     public List<ToDo> findByUserId(String userId) {
         ToDo toDo = ToDoMapper.mapToToDo("");
         ToDo UserId = (ToDo) toDoRepository.findByUserId(String.valueOf(toDo));
-        return (List<ToDo>) ToDoMapper.mapToLoginRequest(UserId);
+        return (List<ToDo>) ToDoMapper.mapToToDo(String.valueOf(UserId));
     }
 
     @Override
-    public LoginRequest updateToDo(ToDo toDo) {
+    public ToDo updateToDo(ToDo toDo) {
         ToDo toDo1 = ToDoMapper.mapToToDo("");
         ToDo updated = toDoRepository.save(toDo1);
-        return ToDoMapper.mapToLoginRequest(updated);
+        return ToDoMapper.mapToToDo(String.valueOf(updated));
     }
 
     @Override
     public ToDoRepository deleteToDo(String id) {
         ToDo deleted = ToDoMapper.mapToToDo("");
-        return (ToDoRepository) ToDoMapper.mapToLoginRequest(deleted);
+        return (ToDoRepository) ToDoMapper.mapToToDo(String.valueOf(deleted));
     }
 }

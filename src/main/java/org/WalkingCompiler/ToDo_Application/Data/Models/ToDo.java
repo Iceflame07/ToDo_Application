@@ -12,7 +12,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class ToDo {
 
     @Id
-    private String id;
     private String title;
     private String description;
     private boolean completed;

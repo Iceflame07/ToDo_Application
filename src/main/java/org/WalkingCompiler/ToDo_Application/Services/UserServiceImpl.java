@@ -16,18 +16,19 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public User createUser(SignUpRequest signUpRequest) {
-        User user = userMapper.mapSignUpRequestToUser(signUpRequest);
+    public User createUser(SignUpRequest User) {
+        User user = userMapper.mapSignUpRequestToUser(User);
         User savedUser = userRepository.save(user);
         return UserMapper.mapToLoginRequestToUser(savedUser);
     }
 
     @Override
-    public Optional<User> findByUserName(String userName) {
-        User user = userMapper.mapSignUpRequestToUser(findByUserName(""));
+    public Optional<User> findByUserName(SignUpRequest userName) {
+        User user = userMapper.mapUserToUser(String.valueOf(userName));
         User savedUser = userRepository.save(user);
         return userRepository.findByUsername(savedUser.getUsername());
     }
+
 
     @Override
     public User loginUser(LoginRequest loginRequest) {

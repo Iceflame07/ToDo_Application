@@ -3,13 +3,12 @@ import org.WalkingCompiler.ToDo_Application.DTO.Request.LoginRequest;
 import org.WalkingCompiler.ToDo_Application.DTO.Request.SignUpRequest;
 import org.WalkingCompiler.ToDo_Application.Data.Models.User;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
 public interface UserService {
 
     User createUser(SignUpRequest signUpRequest);
-    Optional<User> findByUserName(String username);
+    Optional<User> findByUserName(SignUpRequest userName);
     User loginUser(LoginRequest loginRequest);
 }
