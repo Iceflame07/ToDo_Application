@@ -23,7 +23,7 @@ public class UserController {
 
     @PostMapping("/createUser")
     public ResponseEntity<UserRepository> createUser(@RequestBody UserRepository userRepository) {
-        UserRepository savedUser = userService.createUser((SignUpRequest) userRepository);
+        UserRepository savedUser = (UserRepository) userService.createUser((SignUpRequest) userRepository);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
@@ -35,7 +35,7 @@ public class UserController {
 
     @GetMapping("/loginUser")
     public ResponseEntity<UserRepository> loginUser(@PathVariable UserRepository userRepository) {
-        UserRepository login = userService.loginUser((LoginRequest) userRepository);
+        UserRepository login = (UserRepository) userService.loginUser((LoginRequest) userRepository);
         return new ResponseEntity<>(login, HttpStatus.OK);
     }
 }

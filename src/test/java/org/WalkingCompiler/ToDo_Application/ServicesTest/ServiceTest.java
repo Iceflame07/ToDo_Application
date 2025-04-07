@@ -16,6 +16,7 @@ public class ServiceTest {
         loginRequest.setPassword("password");
         assertTrue(true);
         Assertions.assertEquals("test", loginRequest.getUsername());
+        Assertions.assertEquals("password", loginRequest.getPassword());
     }
 
     @Test
@@ -25,6 +26,7 @@ public class ServiceTest {
         loginRequest.setPassword("wrongPassword");
         assertFalse(false);
         Assertions.assertEquals("test", loginRequest.getUsername());
+        Assertions.assertEquals("wrongPassword", loginRequest.getPassword());
     }
 
     @Test
