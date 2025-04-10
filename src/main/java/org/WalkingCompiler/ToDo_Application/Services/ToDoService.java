@@ -7,9 +7,9 @@ import java.util.List;
 @Service
 public interface ToDoService {
 
-    ToDo createToDo(ToDo toDo);
-    ToDo getToDoById(String id);
+    ToDoRepository createToDo(ToDo toDo);
+    ToDoRepository getToDoById(String id);
     List<ToDo> findByUserId(String userId);
-    ToDo updateToDo(ToDo toDo);
-    ToDoRepository deleteToDo(String id);
+    ToDoRepository updateToDo(ToDo toDo);
+    void deleteToDo(String id);
 }

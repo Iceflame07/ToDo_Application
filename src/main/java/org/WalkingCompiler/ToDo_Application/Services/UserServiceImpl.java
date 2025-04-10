@@ -2,6 +2,8 @@ package org.WalkingCompiler.ToDo_Application.Services;
 import lombok.AllArgsConstructor;
 import org.WalkingCompiler.ToDo_Application.DTO.Request.LoginRequest;
 import org.WalkingCompiler.ToDo_Application.DTO.Request.SignUpRequest;
+import org.WalkingCompiler.ToDo_Application.DTO.Response.LoginResponse;
+import org.WalkingCompiler.ToDo_Application.DTO.Response.SignUpResponse;
 import org.WalkingCompiler.ToDo_Application.Data.Models.User;
 import org.WalkingCompiler.ToDo_Application.Data.Repository.UserRepository;
 import org.WalkingCompiler.ToDo_Application.Utils.UserMapper;
@@ -29,7 +31,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(savedUser.getUsername());
     }
 
-
     @Override
     public User loginUser(LoginRequest loginRequest) {
         Optional<User> userOptional = userRepository.findByUsername(loginRequest.getUsername());
@@ -40,5 +41,19 @@ public class UserServiceImpl implements UserService {
             }
         }
         throw new RuntimeException("Invalid username or password");
+    }
+
+    @Override
+    public User loginUserResponse(LoginResponse loginResponse){
+        User user = userMapper.mapLoginResponse(loginResponse);
+        User message = userRepository.save(user);
+        return userRepository.save(message);
+    }
+
+    @Override
+    public User SignUpResponse(SignUpResponse signUpResponse) {
+        User user = userMapper.mapSignUpResponseToUser(signUpResponse);
+        User message = userRepository.save(user);
+        return userRepository.save(message);
     }
 }

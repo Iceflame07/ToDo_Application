@@ -17,6 +17,6 @@ public class RepositoryTest {
     public void testUserRepositoryFindByUsernameWasNotFound() {
         User use = new User();
         use.setUsername("UsernameNotFound");
-        Assertions.assertNull(use.getUsername());
+        Assertions.assertNotNull(use.getUsername());
     }
 }

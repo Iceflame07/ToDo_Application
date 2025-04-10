@@ -3,7 +3,10 @@ import org.WalkingCompiler.ToDo_Application.Data.Models.ToDo;
 import org.WalkingCompiler.ToDo_Application.Data.Repository.ToDoRepository;
 import org.WalkingCompiler.ToDo_Application.Utils.ToDoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,17 +18,17 @@ public class ToDoServiceImpl implements ToDoService {
     private ToDoMapper toDoMapper;
 
     @Override
-    public ToDo createToDo(ToDo toDo) {
+    public ToDoRepository createToDo(ToDo toDo) {
         ToDo toDo1 = ToDoMapper.mapToToDo(String.valueOf(toDo));
         ToDo savedToDo = toDoRepository.save(toDo1);
-        return ToDoMapper.mapToToDo(String.valueOf(savedToDo));
+        return (ToDoRepository) ToDoMapper.mapToToDo(String.valueOf(savedToDo));
     }
 
     @Override
-    public ToDo getToDoById(String id) {
+    public ToDoRepository getToDoById(String id) {
         ToDo toDo = ToDoMapper.mapToToDo(id);
         Optional<ToDo> getId = toDoRepository.findById(String.valueOf(toDo));
-        return ToDoMapper.mapToToDo(String.valueOf(getId));
+        return (ToDoRepository) ToDoMapper.mapToToDo(String.valueOf(getId));
     }
 
     @Override
@@ -36,15 +39,17 @@ public class ToDoServiceImpl implements ToDoService {
     }
 
     @Override
-    public ToDo updateToDo(ToDo toDo) {
+    public ToDoRepository updateToDo(ToDo toDo) {
         ToDo toDo1 = ToDoMapper.mapToToDo("");
         ToDo updated = toDoRepository.save(toDo1);
-        return ToDoMapper.mapToToDo(String.valueOf(updated));
+        return (ToDoRepository) ToDoMapper.mapToToDo(String.valueOf(updated));
     }
 
     @Override
-    public ToDoRepository deleteToDo(String id) {
-        ToDo deleted = ToDoMapper.mapToToDo("");
-        return (ToDoRepository) ToDoMapper.mapToToDo(String.valueOf(deleted));
+    public void deleteToDo(String id) {
+        ToDo toDo = toDoRepository.findById(toString()).orElseThrow(
+                () -> new ResourceAccessException("ToDo with given userId doesn't exist!")
+        );
+        toDoRepository.delete(toDo);
     }
 }

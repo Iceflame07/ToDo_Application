@@ -8,40 +8,42 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+
 @AllArgsConstructor
 @RestController
-@Controller("api/ToDo")
+@RequestMapping("api/ToDo")
+@Controller
 public class ToDoController {
 
     private final ToDoService toDoService;
 
-    @PostMapping("/createToDo")
+    @PostMapping("createToDo")
     public ResponseEntity<ToDoRepository> createToDo(@RequestBody ToDoRepository toDo){
         ToDoRepository savedToDo = (ToDoRepository) toDoService.createToDo((ToDo) toDo);
         return new ResponseEntity<>(savedToDo, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{Id}")
+    @GetMapping("{Id}")
     public ResponseEntity<ToDoRepository> getToDoById(@PathVariable("id") int toDoId){
         ToDoRepository toDoRepository = (ToDoRepository) toDoService.getToDoById(String.valueOf(toDoId));
         return ResponseEntity.ok(toDoRepository);
     }
 
-    @GetMapping("/UserId")
+    @GetMapping("findByUserId")
     public ResponseEntity<ToDoRepository> findByUserId(@PathVariable("id") int toDoUserId){
         ToDoRepository toDoRepository = (ToDoRepository) toDoService.findByUserId(String.valueOf(toDoUserId));
         return ResponseEntity.ok(toDoRepository);
     }
 
-    @PostMapping("/updateToDo")
-    public ResponseEntity<ToDoRepository> updateToDo(@RequestBody ToDoRepository toDoRepository){
+    @PostMapping("updateToDo")
+    public ResponseEntity<ToDoRepository> updateToDo(@PathVariable("Id") ToDoRepository toDoRepository){
         ToDoRepository updateToDo = (ToDoRepository) toDoService.updateToDo((ToDo) toDoRepository);
         return new ResponseEntity<>(updateToDo, HttpStatus.OK);
     }
 
-    @PostMapping("/deleteToDo")
-    public ResponseEntity<ToDoRepository> deleteToDo(@RequestBody ToDoRepository toDoRepository){
-        ToDoRepository deleteToDo = toDoService.deleteToDo(toDoRepository.toString());
-        return new ResponseEntity<>(deleteToDo, HttpStatus.OK);
+    @DeleteMapping("{ToDo}")
+    public ResponseEntity<String> deleteToDo(@PathVariable String Id){
+        toDoService.deleteToDo(String.valueOf(Id));
+        return ResponseEntity.ok("ToDo deleted successfully!");
     }
 }
