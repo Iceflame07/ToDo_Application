@@ -48,4 +48,8 @@ public class ServiceTest {
         Assertions.assertEquals("test", failure.getUsername());
         Assertions.assertEquals("newPassword", failure.getPassword());
     }
+
+    @Test
+    public void testPage(){
+    }
 }

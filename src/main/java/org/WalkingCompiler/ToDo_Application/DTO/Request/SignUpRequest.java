@@ -1,7 +1,7 @@
 package org.WalkingCompiler.ToDo_Application.DTO.Request;
 import lombok.*;
 
-@Getter @Setter @AllArgsConstructor
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @Data
 public class SignUpRequest {
 

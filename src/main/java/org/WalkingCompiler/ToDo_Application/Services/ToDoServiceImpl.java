@@ -3,10 +3,8 @@ import org.WalkingCompiler.ToDo_Application.Data.Models.ToDo;
 import org.WalkingCompiler.ToDo_Application.Data.Repository.ToDoRepository;
 import org.WalkingCompiler.ToDo_Application.Utils.ToDoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -15,13 +13,12 @@ public class ToDoServiceImpl implements ToDoService {
 
     @Autowired
     private ToDoRepository toDoRepository;
-    private ToDoMapper toDoMapper;
 
     @Override
     public ToDoRepository createToDo(ToDo toDo) {
-        ToDo toDo1 = ToDoMapper.mapToToDo(String.valueOf(toDo));
+        ToDo toDo1 = ToDoMapper.mapToToDo(((ToDoService) toDo).toString());
         ToDo savedToDo = toDoRepository.save(toDo1);
-        return (ToDoRepository) ToDoMapper.mapToToDo(String.valueOf(savedToDo));
+        return (ToDoRepository) ToDoMapper.mapToToDo(((ToDoService) savedToDo).toString());
     }
 
     @Override
@@ -33,7 +30,7 @@ public class ToDoServiceImpl implements ToDoService {
 
     @Override
     public List<ToDo> findByUserId(String userId) {
-        ToDo toDo = ToDoMapper.mapToToDo("");
+        ToDo toDo = ToDoMapper.mapToToDo(userId);
         ToDo UserId = (ToDo) toDoRepository.findByUserId(String.valueOf(toDo));
         return (List<ToDo>) ToDoMapper.mapToToDo(String.valueOf(UserId));
     }

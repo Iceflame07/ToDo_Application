@@ -14,7 +14,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("api/User")
+@RequestMapping("/api")
 @Controller
 public class UserController {
 
@@ -46,13 +46,13 @@ public class UserController {
 
     @GetMapping("/loginUserResponse")
     public ResponseEntity<User> loginUserResponse(@PathVariable UserRepository userRepository) {
-        User user = userService.loginUserResponse(LoginResponse.class.cast(userRepository));
+        User user = userService.loginUserResponse((LoginResponse) userRepository);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("/SignUpResponse")
     public ResponseEntity<User> SignUpResponse(@PathVariable UserRepository userRepository) {
-        User user = userService.SignUpResponse(SignUpResponse.class.cast(userRepository));
+        User user = userService.SignUpResponse((SignUpResponse) userRepository);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
